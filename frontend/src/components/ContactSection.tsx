@@ -10,7 +10,7 @@ const CONTACT_NAME = "Mohammad Yahya Hussain";
 const CONTACT_PHONE = "+60179082264";
 const CONTACT_EMAIL = "mhyahya04@gmail.com";
 const CONTACT_LINKEDIN = "https://www.linkedin.com/in/mohammad-yahya-hussain-99a150289/";
-const CONTACT_GITHUB = "https://github.com/mhyahya854";
+const CONTACT_GITHUB = "https://github.com/mhyahya854/Mohammad-Yahya_Portfolio";
 const CONTACT_SOCIAL_NOTE = `LinkedIn: ${CONTACT_LINKEDIN}\nGitHub: ${CONTACT_GITHUB}`;
 const GOOGLE_CONTACTS_NEW_URL = "https://contacts.google.com/new";
 
