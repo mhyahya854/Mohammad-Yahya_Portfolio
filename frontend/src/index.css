@@ -175,6 +175,9 @@
   html {
     scroll-behavior: smooth;
   }
+  html[data-motion-tier="reduced"] {
+    scroll-behavior: auto;
+  }
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
@@ -184,6 +187,56 @@
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
     }
+  }
+}
+
+html[data-motion-tier="reduced"] .page-lines-svg,
+html[data-motion-tier="reduced"] [class*="page-line-trace"],
+html[data-motion-tier="reduced"] .hero-orbit-node,
+html[data-motion-tier="reduced"] .animate-ping,
+html[data-motion-tier="reduced"] .animate-bounce,
+html[data-motion-tier="reduced"] .animate-blink,
+html[data-motion-tier="reduced"] .animate-pulse-heart {
+  animation: none !important;
+}
+
+html[data-motion-tier="reduced"] .page-lines-svg {
+  transition: none !important;
+}
+
+html[data-motion-tier="reduced"] .cta-luminous-sky::before {
+  animation: none !important;
+  box-shadow:
+    0 0 12px -1px hsl(224 76% 55% / 0.18),
+    0 0 22px -3px hsl(224 76% 55% / 0.12);
+}
+
+@media (hover: none), (pointer: coarse) {
+  .hero-cta-hover:hover,
+  .hover-premium:hover,
+  .hover-premium-card:hover,
+  .hover-premium-pill:hover,
+  .hover-premium-link:hover,
+  .contact-link-hover:hover,
+  .contact-link-hover:hover > div,
+  .contact-social-hover:hover,
+  .footer-link-hover:hover,
+  .hover-premium-input:hover,
+  .nav-tab-hover:hover,
+  .nav-tab-active:hover {
+    transform: none;
+    filter: none;
+    text-shadow: none;
+  }
+
+  .hero-cta-hover:hover svg,
+  .hover-premium:hover svg,
+  .hover-premium-card:hover svg,
+  .hover-premium-link:hover svg,
+  .contact-link-hover:hover > div svg,
+  .contact-social-hover:hover svg,
+  .footer-link-hover:hover svg {
+    filter: none;
   }
 }
 

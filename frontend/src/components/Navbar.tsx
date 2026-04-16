@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sun, Moon, Menu, X } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
+import { useMotionTier } from "@/hooks/use-motion-tier";
+import { scrollToSelector } from "@/lib/motion-tier";
 
 const navItems = [
   { label: "Home", href: "#home" },
@@ -14,9 +16,11 @@ const navItems = [
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
+  const { tier, scrollBehavior } = useMotionTier();
   const [inHero, setInHero] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("home");
+  const reducesMotion = tier === "reduced";
 
   useEffect(() => {
     const onScroll = () => {
@@ -50,8 +54,7 @@ export default function Navbar() {
 
   const scrollTo = (href: string) => {
     setMobileOpen(false);
-    const el = document.querySelector(href);
-    el?.scrollIntoView({ behavior: "smooth" });
+    scrollToSelector(href, scrollBehavior);
   };
 
   return (
@@ -98,23 +101,29 @@ export default function Navbar() {
             aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
             className="flex h-9 w-9 items-center justify-center rounded-full border border-border/60 text-muted-foreground hover:text-foreground hover:border-primary/40 hover:glow-sm transition-all hover-premium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring overflow-hidden"
           >
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.span
-                key={theme}
-                initial={{ scale: 0.5, opacity: 0, rotate: -30 }}
-                animate={{ scale: 1, opacity: 1, rotate: 0 }}
-                exit={{ scale: 0.5, opacity: 0, rotate: 30 }}
-                transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-                className="flex items-center justify-center"
-              >
+            {reducesMotion ? (
+              <span className="flex items-center justify-center">
                 {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
-              </motion.span>
-            </AnimatePresence>
+              </span>
+            ) : (
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={theme}
+                  initial={{ scale: 0.5, opacity: 0, rotate: -30 }}
+                  animate={{ scale: 1, opacity: 1, rotate: 0 }}
+                  exit={{ scale: 0.5, opacity: 0, rotate: 30 }}
+                  transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+                  className="flex items-center justify-center"
+                >
+                  {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+                </motion.span>
+              </AnimatePresence>
+            )}
           </button>
           
           <motion.button
-            whileHover={{ scale: 1.05, y: -1 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={reducesMotion ? undefined : { scale: 1.05, y: -1 }}
+            whileTap={reducesMotion ? undefined : { scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 10 }}
             onClick={() => scrollTo("#contact")}
             className="hidden sm:inline-flex h-9 items-center rounded-full cta-luminous-sky px-4 text-xs font-semibold text-primary-foreground transition-all hover:glow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sheen"
@@ -133,24 +142,15 @@ export default function Navbar() {
       </nav>
 
       {/* Mobile menu */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2 }}
-            className="glass-surface mx-4 mb-2 mt-1 rounded-2xl border border-border/40 p-4 md:hidden"
-          >
+      {reducesMotion ? (
+        mobileOpen ? (
+          <div className="glass-surface mx-4 mb-2 mt-1 rounded-2xl border border-border/40 p-4 md:hidden">
             <div className="flex flex-col gap-1">
-              {navItems.map((item, index) => {
+              {navItems.map((item) => {
                 const isActive = activeSection === item.href.slice(1);
                 return (
-                  <motion.button
+                  <button
                     key={item.href}
-                    initial={{ opacity: 0, x: -8 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.18, delay: index * 0.04, ease: [0.4, 0, 0.2, 1] }}
                     onClick={() => scrollTo(item.href)}
                     className={`rounded-xl border border-transparent px-4 py-2.5 text-left text-sm font-medium transition-all duration-200 hover-premium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
                       isActive
@@ -159,22 +159,63 @@ export default function Navbar() {
                     }`}
                   >
                     {item.label}
-                  </motion.button>
+                  </button>
                 );
               })}
-              
-              <motion.button
-                whileHover={{ scale: 1.02, y: -1 }}
-                whileTap={{ scale: 0.98 }}
+
+              <button
                 onClick={() => scrollTo("#contact")}
                 className="mt-2 flex h-10 items-center justify-center rounded-xl cta-luminous-sky text-sm font-semibold text-primary-foreground transition-all hover:glow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sheen"
               >
                 Hire Me
-              </motion.button>
+              </button>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+        ) : null
+      ) : (
+        <AnimatePresence>
+          {mobileOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2 }}
+              className="glass-surface mx-4 mb-2 mt-1 rounded-2xl border border-border/40 p-4 md:hidden"
+            >
+              <div className="flex flex-col gap-1">
+                {navItems.map((item, index) => {
+                  const isActive = activeSection === item.href.slice(1);
+                  return (
+                    <motion.button
+                      key={item.href}
+                      initial={{ opacity: 0, x: -8 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.18, delay: index * 0.04, ease: [0.4, 0, 0.2, 1] }}
+                      onClick={() => scrollTo(item.href)}
+                      className={`rounded-xl border border-transparent px-4 py-2.5 text-left text-sm font-medium transition-all duration-200 hover-premium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                        isActive
+                          ? "bg-primary/14 text-primary font-semibold nav-tab-active"
+                          : "text-muted-foreground nav-tab-hover"
+                      }`}
+                    >
+                      {item.label}
+                    </motion.button>
+                  );
+                })}
+                
+                <motion.button
+                  whileHover={{ scale: 1.02, y: -1 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => scrollTo("#contact")}
+                  className="mt-2 flex h-10 items-center justify-center rounded-xl cta-luminous-sky text-sm font-semibold text-primary-foreground transition-all hover:glow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sheen"
+                >
+                  Hire Me
+                </motion.button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
     </header>
   );
 }

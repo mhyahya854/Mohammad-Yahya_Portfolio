@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { useMotionTier } from "@/hooks/use-motion-tier";
 
 interface Props {
   children: ReactNode;
@@ -9,9 +10,11 @@ interface Props {
 }
 
 export default function SectionReveal({ children, className = "", delay = 0, animate = false }: Props) {
+  const { tier } = useMotionTier();
   const prefersReducedMotion = useReducedMotion();
+  const shouldAnimate = animate && tier === "full" && !prefersReducedMotion;
 
-  if (!animate) {
+  if (!shouldAnimate) {
     return <div className={className}>{children}</div>;
   }
 

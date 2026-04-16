@@ -1,9 +1,11 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, Phone, ChevronDown, FileText, FolderOpen, MessageCircle } from "lucide-react";
 import SectionReveal from "./SectionReveal";
 import { EmailDialog } from "./EmailDialog";
 import HeroSpaceBackground from "./HeroSpaceBackground";
 import { toast } from "sonner";
+import { useMotionTier } from "@/hooks/use-motion-tier";
+import { scrollToSelector } from "@/lib/motion-tier";
 
 const CONTACT_NAME = "Mohammad Yahya Hussain";
 const CONTACT_PHONE = "+60179082264";
@@ -80,7 +82,8 @@ const socials = [
 ];
 
 export default function Hero() {
-  const prefersReducedMotion = useReducedMotion();
+  const { tier, scrollBehavior } = useMotionTier();
+  const reducesMotion = tier === "reduced";
 
   const downloadVCard = () => {
     if (typeof window === "undefined") return;
@@ -132,7 +135,7 @@ export default function Hero() {
   };
 
   const scrollTo = (id: string) => {
-    document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
+    scrollToSelector(id, scrollBehavior);
   };
 
   return (
@@ -149,7 +152,7 @@ export default function Hero() {
           <SectionReveal animate>
             <div className="mb-6 inline-flex items-center gap-2 rounded-full glass-surface px-4 py-2 text-xs text-muted-foreground">
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
+                <span className={`absolute inline-flex h-full w-full rounded-full bg-primary opacity-60${reducesMotion ? "" : " animate-ping"}`} />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
               </span>
               Open to internships, analytics roles, freelance work, and practical data collaborations
@@ -181,8 +184,8 @@ export default function Hero() {
                 href="/resume/Mohammad-Yahya-Hussain-Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={prefersReducedMotion ? {} : { scale: 1.02 }}
-                whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
+                whileHover={reducesMotion ? undefined : { scale: 1.02 }}
+                whileTap={reducesMotion ? undefined : { scale: 0.98 }}
                 transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
                 className="sheen inline-flex h-11 items-center gap-2 rounded-full cta-subtle-sky px-6 text-sm font-semibold text-primary-foreground transition-all hover-premium hero-cta-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
@@ -250,7 +253,7 @@ export default function Hero() {
           <div className="relative w-full max-w-md">
             <div className="absolute -inset-4 rounded-3xl bg-primary/[0.02] blur-xl" aria-hidden="true" />
             <motion.div
-              whileHover={prefersReducedMotion ? {} : { y: -4 }}
+              whileHover={reducesMotion ? undefined : { y: -4 }}
               transition={{ duration: 0.24, ease: [0.4, 0, 0.2, 1] }}
               className="relative overflow-hidden rounded-xl border shadow-2xl shadow-black/40 hover-premium-card hero-editor-shell"
             >
@@ -295,9 +298,9 @@ export default function Hero() {
                   return (
                     <motion.div
                       key={i}
-                      initial={{ opacity: 0, x: -6 }}
+                      initial={reducesMotion ? false : { opacity: 0, x: -6 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.5 + i * 0.05, duration: 0.25 }}
+                      transition={reducesMotion ? { duration: 0 } : { delay: 0.5 + i * 0.05, duration: 0.25 }}
                       className={`flex border-l-2 border-l-transparent ${isActive ? "hero-editor-line-active" : ""}`}
                     >
                       <span className="hero-editor-line-number w-10 text-right pr-4 select-none shrink-0">
@@ -309,16 +312,16 @@ export default function Hero() {
                 })}
                 {/* Cursor line */}
                 <motion.div
-                  initial={{ opacity: 0 }}
+                  initial={reducesMotion ? false : { opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 1.6 }}
+                  transition={reducesMotion ? { duration: 0 } : { delay: 1.6 }}
                   className="flex"
                   style={{ borderLeft: '2px solid transparent' }}
                 >
                   <span className="hero-editor-line-number w-10 text-right pr-4 select-none shrink-0">
                     {codeLines.length + 1}
                   </span>
-                  <span className="hero-editor-cursor inline-block h-[15px] w-[1.5px] mt-[3px] animate-blink" />
+                  <span className={`hero-editor-cursor inline-block h-[15px] w-[1.5px] mt-[3px]${reducesMotion ? "" : " animate-blink"}`} />
                 </motion.div>
               </div>
 
@@ -345,14 +348,14 @@ export default function Hero() {
       {/* Scroll indicator */}
       <motion.button
         onClick={() => scrollTo("#about")}
-        initial={{ opacity: 0 }}
+        initial={reducesMotion ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
+        transition={reducesMotion ? { duration: 0 } : { delay: 2 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-muted-foreground/60 hover:text-muted-foreground transition-colors hover-premium hover-premium-link focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-md"
         aria-label="Scroll down"
       >
         <span className="text-[10px] uppercase tracking-widest">Scroll</span>
-        <ChevronDown size={16} className="animate-bounce" />
+        <ChevronDown size={16} className={reducesMotion ? undefined : "animate-bounce"} />
       </motion.button>
     </section>
   );

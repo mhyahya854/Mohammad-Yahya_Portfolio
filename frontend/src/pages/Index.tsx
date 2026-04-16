@@ -1,3 +1,4 @@
+import { useMotionTier } from "@/hooks/use-motion-tier";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import StarField from "@/components/StarField";
 import ScrollProgress from "@/components/ScrollProgress";
@@ -11,11 +12,13 @@ import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
 export default function Index() {
+  const { tier } = useMotionTier();
+
   return (
     <ThemeProvider>
       <div className="relative min-h-screen overflow-x-hidden">
         <ScrollProgress />
-        <StarField />
+        {tier === "full" ? <StarField /> : null}
         {/* Subtle background darkening toward the bottom */}
         <div className="pointer-events-none fixed inset-0 z-[1] bg-gradient-to-b from-transparent via-transparent to-black/15 dark:to-black/25" aria-hidden="true" />
         <Navbar />

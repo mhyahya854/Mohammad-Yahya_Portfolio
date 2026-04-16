@@ -1,6 +1,8 @@
 import { Github, Linkedin, Mail, Phone, MapPin } from "lucide-react";
 import { EmailDialog } from "./EmailDialog";
 import { toast } from "sonner";
+import { useMotionTier } from "@/hooks/use-motion-tier";
+import { scrollToSelector } from "@/lib/motion-tier";
 
 const CONTACT_NAME = "Mohammad Yahya Hussain";
 const CONTACT_PHONE = "+60179082264";
@@ -66,6 +68,8 @@ const connect = [
 ];
 
 export default function Footer() {
+  const { scrollBehavior } = useMotionTier();
+
   const downloadVCard = () => {
     if (typeof window === "undefined") return;
 
@@ -116,7 +120,7 @@ export default function Footer() {
   };
 
   const scrollTo = (href: string) => {
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    scrollToSelector(href, scrollBehavior);
   };
 
   return (

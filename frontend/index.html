@@ -13,6 +13,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <script>
+      (function () {
+        var mobileBreakpoint = 768;
+        var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var hasCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
+        var isMobile = window.innerWidth < mobileBreakpoint && hasCoarsePointer;
+        var motionTier = prefersReducedMotion || isMobile ? "reduced" : "full";
+
+        document.documentElement.dataset.motionTier = motionTier;
+        document.documentElement.dataset.isMobile = String(isMobile);
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
