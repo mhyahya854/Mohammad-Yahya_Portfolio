@@ -57,6 +57,14 @@ const otherProjects: Project[] = [
     isSelf: true,
     image: "https://static.prod-images.emergentagent.com/jobs/a4b47073-c05f-42c3-8590-a3fae8cf3b4a/images/1765378a5a95b496af45bda2c7a39382356822985286ab8822877f21daad734f.png",
   },
+  {
+    title: "My CookBook",
+    badge: "Personal Use",
+    description: "A vibecoded CookBook for Personal Use.",
+    tags: ["CookBook", "Personal", "Vibecoded"],
+    github: "https://github.com/mhyahya854/Mohammad-Yahya_Portfolio",
+    deployment: null,
+  },
 ];
 
 function ProjectLinks({ project, onSelfClick }: { project: Project; onSelfClick: () => void }) {
@@ -146,7 +154,7 @@ export default function ProjectsSection() {
           {otherProjects.map((project) => (
             <SectionReveal key={project.title}>
               <div className="group glass-surface rounded-2xl overflow-hidden h-full flex flex-col transition-colors duration-200 hover:border-primary/20 hover-premium-card">
-                {project.image && (
+                {project.image ? (
                   <div className="relative w-full overflow-hidden bg-background/40">
                     <img
                       src={project.image}
@@ -156,6 +164,13 @@ export default function ProjectsSection() {
                       data-testid={`project-image-${project.badge.toLowerCase().replace(/\s+/g, '-')}`}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent pointer-events-none" />
+                  </div>
+                ) : (
+                  <div className="relative h-40 w-full overflow-hidden bg-gradient-to-br from-primary/8 via-muted/25 to-background/50 transition-all duration-300 group-hover:brightness-110">
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent pointer-events-none" />
+                    <div className="absolute inset-0 flex items-center justify-center px-4 text-center text-[10px] font-mono uppercase tracking-[0.22em] text-muted-foreground/60">
+                      Preview Coming Soon
+                    </div>
                   </div>
                 )}
                 <div className="p-6 flex flex-col flex-1">
