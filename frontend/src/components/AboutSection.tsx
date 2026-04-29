@@ -12,13 +12,16 @@ const cards = [
   {
     title: "What I Do",
     content: [
-      "I work with Python, SQL, Power BI, and supporting development tools to build dashboards, reports, and analytical workflows. The part I care about most is usefulness. A dashboard that confuses people is not a dashboard, and a forecast nobody trusts has no value. I care about the space between 'technically correct' and 'actually useful'\u2014because that is where real work matters.",
+      "I build full systems that combine structured data, application logic, and real user workflows.",
+      "I focus on how data moves through a system, how users interact with it, and how the structure holds up under real use.",
+      "Clean data without a working system is incomplete. A system without clear data is unreliable. I build both together.",
     ],
   },
   {
     title: "My Goal",
     content: [
-      "My goal is to grow into a data professional who builds systems that feel clear, reliable, and easy to use. I want to sharpen my analytics, deepen my reporting and dashboard work, and take on real projects where the outcome matters to real people.",
+      "My goal is to grow into an engineer who designs systems that scale, stay consistent, and remain usable under real conditions.",
+      "I want to work on real products where system decisions matter, not just isolated features.",
     ],
   },
 ];

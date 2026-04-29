@@ -57,20 +57,19 @@ const downloadVCardFallback = () => {
 const codeLines = [
   'const analyst = {',
   '  name: "Mohammad Yahya Hussain",',
-  '  role: "Analytics-Focused CS Student",',
+  '  role: "System Builder using Data Thinking",',
   '  focus: [',
-  '    "Dashboards",',
-  '    "Automation",',
-  '    "Forecasting",',
-  '    "Storytelling",',
+  '    "Systems",',
+  '    "Data Flow",',
+  '    "User Workflows",',
   '  ],',
   '  stack: [',
   '    "Python",',
   '    "SQL",',
-  '    "Power BI",',
-  '    "Tableau",',
+  '    "TypeScript",',
+  '    "MySQL",',
   '  ],',
-  '  build: () => "Useful reporting systems"',
+  '  build: () => "Real systems that handle real usage"',
   '}',
 ];
 
@@ -159,7 +158,7 @@ export default function Hero() {
             </div>
           </SectionReveal>
 
-          <SectionReveal animate delay={0.1}>
+          <SectionReveal animate delay={0.15}>
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
               <span className="block text-foreground">Mohammad</span>
               <span className="block text-gradient">Yahya Hussain</span>
@@ -168,13 +167,19 @@ export default function Hero() {
 
           <SectionReveal animate delay={0.15}>
             <p className="mt-3 text-sm font-medium uppercase tracking-widest text-primary">
-              Analytics-Focused Computer Science Student
+              System Builder using Data Thinking
             </p>
           </SectionReveal>
 
           <SectionReveal animate delay={0.2}>
             <p className="mt-4 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
-              I turn raw data into clearer decisions, sharper reporting, and practical insight people can actually use.
+              I build systems that are not only correct, but usable and trusted. Focused on how systems behave under real use, not how they look in demos.
+            </p>
+          </SectionReveal>
+
+          <SectionReveal animate delay={0.23}>
+            <p className="mt-3 text-xs font-medium text-muted-foreground/80">
+              All projects are built with real usage in mind and tested through repeated personal use.
             </p>
           </SectionReveal>
 

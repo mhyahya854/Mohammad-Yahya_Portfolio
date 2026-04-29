@@ -13,8 +13,8 @@ const education = [
   {
     title: "Associate Degree in Computer Science",
     org: "Virtual University of Pakistan",
-    period: "2024 \u2014 2026",
-    details: "Two-year associate degree focused on computer science fundamentals.",
+    period: "2023 \u2014 2025",
+    details: "Two-year associate degree focused on computer science fundamentals. Final year project completed remotely, focused on full stack system design with authentication, CRUD operations, and MySQL database structure.",
   },
   {
     title: "SSC and HSSC",

@@ -19,7 +19,7 @@ interface Project {
 const featuredProject: Project = {
   title: "TRAGOS \u2014 Travel Group Discovery & Coordination Platform",
   badge: "Travel Platform",
-  description: "A full-stack travel coordination platform built to help users discover, create, and manage group trips. The project addresses the challenge of organizing travel groups by combining authentication, group chat, join requests, notifications, and search filters into one system. Focus was on building a functional, multi-feature web application from the ground up.",
+  description: "A full stack system for managing group travel coordination.\n\nHandles authentication, group creation, join requests, and filtering within a structured architecture.\n\nDesigned with clear separation between users, groups, and interactions to maintain clean data flow and avoid tight coupling as the system expands.",
   tags: ["PHP", "MySQL", "JavaScript", "HTML", "CSS"],
   github: "https://github.com/mhyahya854/Tragos-Travel-Companion.git",
   deployment: null,
@@ -28,19 +28,9 @@ const featuredProject: Project = {
 
 const otherProjects: Project[] = [
   {
-    title: "The Vault \u2014 Analytical Finance",
-    badge: "Analytical Finance",
-    description: "An analytical finance product concept built to improve financial visibility, planning, and decision-making through a clearer product experience. Currently in development, focusing on structuring financial information that feels easier to track and act on.",
-    tags: ["TypeScript", "Product UI", "Finance", "Analytics"],
-    github: "https://github.com/mhyahya854/The-Vault.git",
-    deployment: null,
-    status: "In Development",
-    image: "https://static.prod-images.emergentagent.com/jobs/a4b47073-c05f-42c3-8590-a3fae8cf3b4a/images/f7ac2a2783799acd7d31b9013933637d4810ec740654d4ea85ca6e83f8e8103a.png",
-  },
-  {
     title: "Muslim Prayer App",
     badge: "Community App",
-    description: "A community-focused mobile app concept designed to help users track prayer times, organize related activities, and interact with a more structured spiritual routine. Currently in development.",
+    description: "A community-focused mobile app concept designed to help users track prayer times, organize related activities, and interact with a more structured spiritual routine.",
     tags: ["Mobile", "Community", "UI/UX"],
     github: "https://github.com/mhyahya854/Prayer-App.git",
     deployment: null,
@@ -58,11 +48,19 @@ const otherProjects: Project[] = [
     image: "https://static.prod-images.emergentagent.com/jobs/a4b47073-c05f-42c3-8590-a3fae8cf3b4a/images/1765378a5a95b496af45bda2c7a39382356822985286ab8822877f21daad734f.png",
   },
   {
-    title: "My CookBook",
-    badge: "Personal Use",
-    description: "A vibecoded CookBook for Personal Use.",
-    tags: ["CookBook", "Personal", "Vibecoded"],
-    github: "https://github.com/mhyahya854/Mohammad-Yahya_Portfolio",
+    title: "Mizaan \u2014 Personal Management System",
+    badge: "Personal Management",
+    description: "A modular system used to manage notes, tasks, and structured entries in one interface, replacing multiple tools.\n\nSupports linked data across content types, with a shared model for notes, tasks, and entries.\n\nBuilt with a modular architecture so new content types can be added without breaking existing structure.",
+    tags: ["Modular", "Notes", "Tasks"],
+    github: null,
+    deployment: null,
+  },
+  {
+    title: "Stillio \u2014 Productivity Workspace",
+    badge: "Productivity Workspace",
+    description: "A focused workspace used daily for structured work sessions.\n\nDesigned to reduce context switching and maintain consistent task flow.\n\nBuilt with minimal system surface to keep interactions predictable and distraction-free.",
+    tags: ["Productivity", "Focus", "Minimal"],
+    github: null,
     deployment: null,
   },
 ];
@@ -165,12 +163,9 @@ export default function ProjectsSection() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent pointer-events-none" />
                   </div>
-                ) : (
+                  ) : (
                   <div className="relative h-40 w-full overflow-hidden bg-gradient-to-br from-primary/8 via-muted/25 to-background/50 transition-all duration-300 group-hover:brightness-110">
                     <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent pointer-events-none" />
-                    <div className="absolute inset-0 flex items-center justify-center px-4 text-center text-[10px] font-mono uppercase tracking-[0.22em] text-muted-foreground/60">
-                      Preview Coming Soon
-                    </div>
                   </div>
                 )}
                 <div className="p-6 flex flex-col flex-1">
